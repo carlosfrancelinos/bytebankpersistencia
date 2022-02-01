@@ -1,27 +1,51 @@
+import 'package:bytebanknew/databases/app_database.dart';
 import 'package:bytebanknew/models/contact.dart';
 import 'package:bytebanknew/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
-  final List<Contact> contacts = <Contact>[];
 
   @override
   Widget build(BuildContext context) {
-    contacts.add(Contact(0, 'Carlos', 2000));
-    contacts.add(Contact(0, 'Carlos', 2000));
-    contacts.add(Contact(0, 'Carlos', 2000));
-    contacts.add(Contact(0, 'Carlos', 2000));
     return Scaffold(
       appBar: AppBar(
         title: Text('Contacts'),
         backgroundColor: Colors.green[900],
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final Contact contact = contacts[index];
-          return _ContactItem(contact);
+      body: FutureBuilder<List<Contact>>(
+        initialData: [],
+        future: findAll(),
+        builder: (context, snapshot) {
+          switch(snapshot.connectionState){
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Text('Loading'),
+                  ],
+                ),
+              );
+              break;
+            case ConnectionState.active:
+              break;
+            case ConnectionState.done:
+              final List<Contact> contacts = snapshot.data as List<Contact>;
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final Contact contact = contacts[index];
+                  return _ContactItem(contact);
+                },
+                itemCount: contacts.length,
+              );
+              break;
+          }
+          return Text('Unkown error');
         },
-        itemCount: contacts.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
