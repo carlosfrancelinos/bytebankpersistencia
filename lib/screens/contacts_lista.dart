@@ -3,8 +3,12 @@ import 'package:bytebanknew/models/contact.dart';
 import 'package:bytebanknew/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
+  @override
+  _ContactsListState createState() => _ContactsListState();
+}
 
+class _ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class ContactsList extends StatelessWidget {
         initialData: [],
         future: findAll(),
         builder: (context, snapshot) {
-          switch(snapshot.connectionState){
+          switch (snapshot.connectionState) {
             case ConnectionState.none:
               break;
             case ConnectionState.waiting:
@@ -55,7 +59,9 @@ class ContactsList extends StatelessWidget {
                   builder: (context) => ContactForm(),
                 ),
               )
-              .then((newContact) => debugPrint(newContact.toString()));
+              .then(
+                (value) => setState(() {}),
+              );
         },
         child: Icon(Icons.add),
       ),
