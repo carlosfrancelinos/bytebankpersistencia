@@ -1,10 +1,8 @@
-import 'package:bytebanknew/databases/app_database.dart';
-import 'package:bytebanknew/models/contact.dart';
 import 'package:bytebanknew/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(BytebankApp());
+  runApp(const BytebankApp());
 }
 
 class BytebankApp extends StatelessWidget {
@@ -28,7 +26,7 @@ class BytebankApp extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
         ),
       ),
-      home: Dashboard(),
+      home: const Dashboard(),
     );
   }
 }
