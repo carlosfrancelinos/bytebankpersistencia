@@ -70,8 +70,7 @@ class _FeatureItem extends StatelessWidget {
     this.name,
     this.icon, {
     required this.onClick,
-  })  : assert(icon != null),
-        assert(onClick != null);
+  });
 
   @override
   Widget build(BuildContext context) {
